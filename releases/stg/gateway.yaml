@@ -13,6 +13,10 @@ spec:
     git: git@github.com:wynnel/puma-gitops
     path: charts/gateway
     ref: master
+  valuesFrom:
+  - secretKeyRef:
+      name: dev-secrets
+      key: dev.yamll
   values:
     replicaCount: 2
     image:
@@ -33,8 +37,5 @@ spec:
         ENV.PROPERTY.gateway.template: "Staging environment"
         ENV.CONTEXT_PROPERTY.env-configuration.example: "Staging environment"
         ENV.PASSWORD.password: "more secret stg password"
-  valuesFrom:
-  - secretKeyRef:
-      name: dev-secrets
-      key: dev.yaml
+
 
