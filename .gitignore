@@ -21,3 +21,5 @@
 
 # Local
 *.DS_Store
+
+secrets/*
