@@ -22,17 +22,19 @@ spec:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
       username: admin
-      password: "nexusAdminPassword"
     hazelcast:
       enabled: "true"
     influxdb:
       host: "apim-service-metrics-runtime-influxdb.default"
     gateway:
       license:
-        value: "todo sealed secret"
         accept: "true"
       env:
         ENV.PROPERTY.gateway.template: "Staging environment"
         ENV.CONTEXT_PROPERTY.env-configuration.example: "Staging environment"
         ENV.PASSWORD.password: "more secret stg password"
+  valuesFrom:
+  - secretKeyRef:
+      name: dev-secrets
+      key: dev.yaml
 
