@@ -30,7 +30,7 @@ spec:
         accept: "true"
       env:
         ENV.PROPERTY.gateway.template: "Dev environment"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "Dev environment"
+        ENV.CONTEXT_PROPERTY.env-configuration.example: "Dev environment!"
         ENV.PASSWORD.password: "not secret dev password"
   valuesFrom:
   - secretKeyRef:
