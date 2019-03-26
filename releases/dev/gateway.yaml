@@ -21,7 +21,7 @@ spec:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
       username: admin
-      password: "nexusAdminPassword"
+      password: "asdf22345asASDFA"
     hazelcast:
       enabled: "false"
     influxdb:
