@@ -1,0 +1,37 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: gateway-dev
+  namespace: dev
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:dev-*
+spec:
+  releaseName: gateway-dev
+  chart:
+    git: git@github.com:wynnel/puma-gitops
+    path: charts/gateway
+    ref: master
+  values:
+    image:
+      imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
+      tag: 8
+    imageCredentials:
+      name: "docker.sandbox2.apimgcp.com"
+      registry: "docker.sandbox2.apimgcp.com"
+      username: admin
+      password: *nexusAdminPassword
+    hazelcast:
+      enabled: "false"
+    influxdb:
+      host: "apim-service-metrics-runtime-influxdb.default"
+    gateway:
+      license:
+        value: "todo sealed secret"
+        accept: "true"
+      env:
+        ENV.PROPERTY.gateway.template: "Dev environment"
+        ENV.CONTEXT_PROPERTY.env-configuration.example: "Dev environment"
+        ENV.PASSWORD.password: "not secret dev password"
+

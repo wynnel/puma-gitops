@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: gw-{{ .Release.Namespace }}
+    service: gw-svc-{{ .Release.Namespace }}
+  name: gw-svc-{{ .Release.Namespace }}
+  annotations:
+    description: "The Gateway service"
+spec:
+  selector:
+    app: gw-{{ .Release.Namespace }}
+  type: ClusterIP
+  ports:
+    {{- range .Values.service.ports }}
+    - protocol: TCP
+      port: {{ .external }}
+      targetPort: {{ .internal }}
+      name: {{ .name | quote }}
+    {{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gw-{{ .Release.Namespace }}
+  labels:
+    app: gw-{{ .Release.Namespace }}
+spec:
+  selector:
+    app: gw-{{ .Release.Namespace }}
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  sessionAffinity: ClientIP
+  externalTrafficPolicy: Local
+  ports:
+    {{- range .Values.service.ports }}
+    - protocol: TCP
+      port: {{ .external }}
+      targetPort: {{ .internal }}
+      name: {{ .name | quote }}
+    {{- end }}

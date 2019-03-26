@@ -1,0 +1,122 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gw-{{ .Release.Namespace }}
+  labels:
+    app: gw-{{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.deploymentStrategy }}
+  {{- if ne .Values.deploymentStrategy "RollingUpdate" }}
+    rollingUpdate: null
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: gw-{{ .Release.Namespace }}
+    spec:
+      imagePullSecrets:
+         - name: {{ .Values.imageCredentials.name | quote }}
+      containers:
+      - name: gw
+        {{- if .Values.image.imageName }}
+        image: {{ .Values.image.imageName }}:{{ .Values.image.tag }}
+        {{- end }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        ports:
+          {{- range .Values.service.ports }}
+          - containerPort: {{ .internal }}
+          {{- end }}
+        volumeMounts:
+          - name: license-xml
+            mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
+            subPath: license.xml
+          - name: metrics-volume
+            mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/metrics-policy.req.bundle
+            subPath: metrics-policy.bundle
+          - name: hazelcast-client
+            mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/assertions/ExternalHazelcastSharedStateProviderAssertion/hazelcast-client.xml
+            subPath: hazelcast-client.xml
+          - name: log-config-override
+            mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/log-override.properties
+            subPath: log-override.properties
+        env:
+          - name: ACCEPT_LICENSE
+            valueFrom:
+              configMapKeyRef:
+                name: gateway-config
+                key: accept.license
+          - name: EXTRA_JAVA_ARGS
+            valueFrom:
+              configMapKeyRef:
+                name: gateway-config
+                key: extra-java-args.env
+          - name: SSG_JVM_HEAP
+            valueFrom:
+              configMapKeyRef:
+                name: gateway-config
+                key: ssg-jvm-heap.env
+        {{- if  .Values.gateway.customTlsKey.enabled }}
+          - name: SSG_SSL_KEY_PEM
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.gateway.customTlsKey.secretName }}
+                key: {{ .Values.gateway.customTlsKey.pem }}
+          - name: SSG_SSL_KEY_PEM_CERTS
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.gateway.customTlsKey.secretName }}
+                key: {{ .Values.gateway.customTlsKey.cert }}
+        {{- end }}
+        {{- range $name, $value := .Values.gateway.env }}
+          {{- if not (empty $value) }}
+          - name: {{ $name | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+        {{- end }}
+        livenessProbe:
+          exec:
+            command:
+            - /opt/docker/rc.d/diagnostic/health_check.sh
+          initialDelaySeconds: {{ .Values.service.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.service.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.service.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.service.livenessProbe.successThreshold }}
+        readinessProbe:
+          exec:
+            command:
+            - /opt/docker/rc.d/diagnostic/health_check.sh
+          initialDelaySeconds: {{ .Values.service.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.service.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.service.readinessProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.service.readinessProbe.failureThreshold }}
+          successThreshold: {{ .Values.service.readinessProbe.successThreshold }}
+      volumes:
+        - name: license-xml
+          secret:
+            secretName: gw-license
+            items:
+            - key: license
+              path: license.xml
+        - name: metrics-volume
+          configMap:
+            name: gateway-config
+            items:
+            - key: metrics-bundle
+              path: metrics-policy.bundle
+        - name: hazelcast-client
+          configMap:
+            name: gateway-config
+            items:
+            - key: hazelcast-xml
+              path: hazelcast-client.xml
+        - name: log-config-override
+          configMap:
+            name: gateway-config
+            items:
+            - key: log-override-properties
+              path: log-override.properties
