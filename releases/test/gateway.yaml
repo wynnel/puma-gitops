@@ -24,12 +24,11 @@ spec:
       username: "admin"
       password: "asdf22345asASDFA"
     hazelcast:
-      enabled: true
+      enabled: false
     influxdb:
       host: "apim-service-metrics-runtime-influxdb.default"
     gateway:
       license:
-        value: "bad license value"
         accept: "true"
       env:
         ENV.PROPERTY.gateway.template: "Testing environment"
