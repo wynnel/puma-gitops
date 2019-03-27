@@ -17,7 +17,7 @@ spec:
     replicaCount: 2
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 8
+      tag: 1
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
@@ -32,8 +32,8 @@ spec:
         value: "bad license value"
         accept: "true"
       env:
-        ENV.PROPERTY.gateway.template: "Staging environment"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "Staging environment"
-        ENV.PASSWORD.password: "more secret stg password"
+        ENV.PROPERTY.gateway.template: "Testing environment"
+        ENV.CONTEXT_PROPERTY.env-configuration.example: "Testing environment"
+        ENV.PASSWORD.password: "less secret test password"
 
 
