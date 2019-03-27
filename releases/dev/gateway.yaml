@@ -16,7 +16,7 @@ spec:
   values:
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 8
+      tag: 1
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"

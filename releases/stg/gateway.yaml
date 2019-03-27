@@ -16,7 +16,7 @@ spec:
   valuesFrom:
   - secretKeyRef:
       name: dev-secrets
-      key: dev.yamll
+      key: dev.yaml
   values:
     replicaCount: 2
     image:
