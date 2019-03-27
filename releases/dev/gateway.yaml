@@ -13,6 +13,10 @@ spec:
     git: git@github.com:wynnel/puma-gitops
     path: charts/gateway
     ref: master
+  valuesFrom:
+  - secretKeyRef:
+      name: dev-secrets
+      key: dev.yaml
   values:
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
@@ -32,8 +36,4 @@ spec:
         ENV.PROPERTY.gateway.template: "Dev environment"
         ENV.CONTEXT_PROPERTY.env-configuration.example: "Dev environment!"
         ENV.PASSWORD.password: "not secret dev password"
-  valuesFrom:
-  - secretKeyRef:
-      name: dev-secrets
-      key: dev.yaml
 

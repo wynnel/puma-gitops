@@ -37,6 +37,6 @@ _Allow write access_, paste the Flux public key and click _Add key_.
 
 brew install fluxctl
 kubectl -n flux logs deployment/flux -f
-fluxctl list-workloads --all-namespaces
+fluxctl list-workloads --k8s-fwd-ns flux
 kubectl describe -n dev dev/gateway | grep Image
 
