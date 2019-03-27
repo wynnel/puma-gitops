@@ -14,10 +14,10 @@ spec:
     path: charts/gateway
     ref: master
   values:
-    replicaCount: 2
+    replicaCount: 1
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 2
+      tag: 3
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
