@@ -15,7 +15,7 @@ spec:
     ref: master
   valuesFrom:
   - secretKeyRef:
-      name: bad-secret
+      name: dev-secrets
       key: bad-key.yaml
   values:
     replicaCount: 2
@@ -27,7 +27,7 @@ spec:
       registry: "docker.sandbox2.apimgcp.com"
       username: admin
     hazelcast:
-      enabled: "true"
+      enabled: true
     influxdb:
       host: "apim-service-metrics-runtime-influxdb.default"
     gateway:
