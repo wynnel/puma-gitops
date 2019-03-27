@@ -17,7 +17,7 @@ spec:
     replicaCount: 1
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 3
+      tag: 2
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
@@ -27,6 +27,17 @@ spec:
       enabled: false
     influxdb:
       host: "apim-service-metrics-runtime-influxdb.default"
+    service:  
+      ports:
+        - name: http
+          internal: 8080
+          external: 80
+        - name: https
+          internal: 8443
+          external: 443
+        - name: custom-http
+          internal: 12345
+          external: 12345
     gateway:
       license:
         accept: "true"
@@ -34,5 +45,13 @@ spec:
         ENV.PROPERTY.gateway.template: "Testing environment"
         ENV.CONTEXT_PROPERTY.env-configuration.example: "Testing environment"
         ENV.PASSWORD.password: "less secret test password"
+        ENV.LISTEN_PORT.custom-https: '{
+          "protocol" : "HTTP",
+          "port" : 12345,
+          "enabledFeatures" : [ "Published service message input" ],
+          "properties" : {
+            "threadPoolSize" : "20"
+          }
+            }'
 
 
