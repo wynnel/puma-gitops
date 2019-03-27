@@ -39,4 +39,5 @@ brew install fluxctl
 kubectl -n flux logs deployment/flux -f
 fluxctl list-workloads --k8s-fwd-ns flux
 kubectl describe -n dev dev/gateway | grep Image
+get helmreleases --all-namespaces
 
