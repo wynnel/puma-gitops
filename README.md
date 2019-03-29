@@ -38,7 +38,7 @@ _Allow write access_, paste the Flux public key and click _Add key_.
 
 ### Misc
 
-
+```bash
 brew install fluxctl
 kubectl -n flux logs deployment/flux -f
 fluxctl list-workloads --k8s-fwd-ns flux
@@ -52,4 +52,4 @@ GOARCH=$(go env GOARCH)
 wget https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
 sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
 kubectl create secret generic gw-license --dry-run --from-file=license.xml -n test  -o yaml | kubeseal --format yaml > secrets/gateway-license.yaml
-
+```
