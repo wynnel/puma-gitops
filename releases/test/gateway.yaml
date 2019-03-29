@@ -43,7 +43,9 @@ spec:
         accept: "true"
       env:
         ENV.PROPERTY.gateway.template: "New Testing environment"
+        ENV.PROPERTY.gateway.template: "docker env variable"
         ENV.CONTEXT_PROPERTY.env-configuration.example: "New Testing environment"
+        ENV.CONTEXT_PROPERTY.env-configuration.example: "example value"
         ENV.PASSWORD.password: "less secret test password"
         ENV.LISTEN_PORT.custom-https: '{
           "protocol" : "HTTP",

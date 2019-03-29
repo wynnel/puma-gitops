@@ -13,6 +13,8 @@ spec:
     git: git@github.com:wynnel/puma-gitops
     path: charts/gateway
     ref: master
+  valuesFrom:
+    name: gateway-secret-values
   values:
     replicaCount: 1
     image:
@@ -38,10 +40,7 @@ spec:
     gateway:
       license:
         accept: "true"
-      env:
-        ENV.PROPERTY.gateway.template: "Dev environment"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "Dev environment"
-        ENV.PASSWORD.password: "less secret dev password"
+
 
 
 
