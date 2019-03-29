@@ -14,7 +14,8 @@ spec:
     path: charts/gateway
     ref: master
   valuesFrom:
-    name: gateway-secret-values
+    - secretKeyRef:
+      name: gateway-secret-values
   values:
     replicaCount: 1
     image:
