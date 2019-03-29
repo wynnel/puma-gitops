@@ -1,7 +1,7 @@
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
-  name: gw-license
+  name: gw-license-dev
   namespace: dev
 spec:
   encryptedData:
