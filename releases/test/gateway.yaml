@@ -42,8 +42,8 @@ spec:
       license:
         accept: "true"
       env:
-        ENV.PROPERTY.gateway.template: "Testing environment"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "Testing environment"
+        ENV.PROPERTY.gateway.template: "New Testing environment"
+        ENV.CONTEXT_PROPERTY.env-configuration.example: "New Testing environment"
         ENV.PASSWORD.password: "less secret test password"
         ENV.LISTEN_PORT.custom-https: '{
           "protocol" : "HTTP",
