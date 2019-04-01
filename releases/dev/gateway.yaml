@@ -15,7 +15,7 @@ spec:
     ref: master
   valuesFrom:
   - secretKeyRef:
-    name: gateway-secret-values
+      name: gateway-secret-values
   values:
     replicaCount: 1
     image:
