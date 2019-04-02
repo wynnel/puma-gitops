@@ -17,10 +17,10 @@ spec:
   - secretKeyRef:
       name: gateway-secret-values
   values:
-    replicaCount: 1
+    replicaCount: 2
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 12
+      tag: latest
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
