@@ -16,11 +16,14 @@ spec:
   valuesFrom:
   - secretKeyRef:
       name: gateway-secret-values
+  - secretKeyRef:
+      name: gateway-license-value
+      key: license.yaml
   values:
     replicaCount: 2
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: latest
+      tag: latest 
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
