@@ -17,7 +17,7 @@ spec:
     replicaCount: 1
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 10
+      tag: 12
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
@@ -43,9 +43,7 @@ spec:
         accept: "true"
       env:
         ENV.PROPERTY.gateway.template: "New Testing environment"
-        ENV.PROPERTY.gateway.template: "docker env variable"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "New Testing environment"
-        ENV.CONTEXT_PROPERTY.env-configuration.example: "example value"
+        ENV.CONTEXT_VARIABLE_PROPERTY.env-configuration.example: "New Testing environment"
         ENV.PASSWORD.password: "less secret test password"
         ENV.LISTEN_PORT.custom-https: '{
           "protocol" : "HTTP",
