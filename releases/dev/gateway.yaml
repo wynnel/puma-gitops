@@ -16,9 +16,6 @@ spec:
   valuesFrom:
   - secretKeyRef:
       name: gateway-secret-values
-  - secretKeyRef:
-      name: gateway-license-value
-      key: license.yaml
   values:
     replicaCount: 2
     image:
