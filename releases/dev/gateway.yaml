@@ -16,6 +16,9 @@ spec:
   valuesFrom:
   - secretKeyRef:
       name: gateway-secret-values
+  - configMapKeyRef:
+      name: env-values
+      key: env.yaml
   values:
     replicaCount: 2
     image:

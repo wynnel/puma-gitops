@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  env.yaml: |-
+    gateway:
+      env:
+        ENV.PROPERTY.gateway.template: "From env file"
+        ENV.CONTEXT_VARIABLE_PROPERTY.env-configuration.example: "From env file"
+        ENV.PASSWORD.password: "From env file"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: env-values
+  namespace: dev
