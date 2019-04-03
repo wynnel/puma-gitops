@@ -15,7 +15,11 @@ spec:
     ref: master
   valuesFrom:
   - secretKeyRef:
-      name: gateway-secret-values
+      name: image-creds
+      key: image-creds.yaml
+  - secretKeyRef:
+      name: gateway-license
+      key: license.yaml
   - configMapKeyRef:
       name: env-values
       key: env.yaml
