@@ -5,7 +5,6 @@ data:
       env:
         ENV.PROPERTY.gateway.template: "From env file"
         ENV.CONTEXT_VARIABLE_PROPERTY.env-configuration.example: "From env file"
-        ENV.PASSWORD.password: "From env file"
 kind: ConfigMap
 metadata:
   creationTimestamp: null
