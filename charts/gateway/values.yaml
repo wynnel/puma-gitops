@@ -71,9 +71,6 @@ gateway:
     secretName: gw-tls
     cert: tls.crt
     pem: tls.key
-  env:
-  - val1:
-  - val2: 
 
 
 hazelcast:
