@@ -5,8 +5,8 @@ metadata:
   name: gateway-test
   namespace: test
   annotations:
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: glob:test-*
+    flux.weave.works/automated: "false"
+    flux.weave.works/tag.chart-image: glob:*
 spec:
   releaseName: gateway-test
   chart:
@@ -24,7 +24,7 @@ spec:
     replicaCount: 2
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 12
+      tag: 14
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
