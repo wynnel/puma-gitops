@@ -9,6 +9,7 @@ metadata:
     flux.weave.works/tag.gateway: glob:*
 spec:
   releaseName: gateway-dev
+  forceUpgrade: true
   chart:
     git: git@github.com:wynnel/puma-gitops
     path: charts/gateway
@@ -27,7 +28,7 @@ spec:
     replicaCount: 2
     image:
       imageName: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 15 
+      tag: 17
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
