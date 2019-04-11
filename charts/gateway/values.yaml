@@ -13,10 +13,10 @@ updateStrategy: {}
   # rollingUpdate:
   #   maxSurge: 1
 #   maxUnavailable: 0
-
-image:
-  name: docker.k8s.apimsvc.ca.com/repository/docker-hosted/gateway:gateway_json-135
-  pullPolicy: Always
+container:
+  image: docker.k8s.apimsvc.ca.com/repository/docker-hosted/gateway
+  tag: gateway_json-135
+  imagePullPolicy: Always
 
 imageCredentials:
     name: docker.k8s.apimsvc.ca.com
