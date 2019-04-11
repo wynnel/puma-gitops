@@ -15,8 +15,7 @@ updateStrategy: {}
 #   maxUnavailable: 0
 
 image:
-  imageName: docker.k8s.apimsvc.ca.com/repository/docker-hosted/gateway
-  tag: gateway_json-135
+  name: docker.k8s.apimsvc.ca.com/repository/docker-hosted/gateway:gateway_json-135
   pullPolicy: Always
 
 imageCredentials:
