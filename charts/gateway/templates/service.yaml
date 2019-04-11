@@ -2,41 +2,28 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: gw-{{ .Release.Namespace }}
-    service: gw-svc-{{ .Release.Namespace }}
-  name: gw-svc-{{ .Release.Namespace }}
+    name: {{ template "gateway.fullname" . }}
+    chart: {{ template "gateway.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "gateway.fullname" . }}
   annotations:
     description: "The Gateway service"
 spec:
   selector:
-    app: gw-{{ .Release.Namespace }}
-  type: ClusterIP
+    app: {{ template "gateway.fullname" . }}
+    release: {{ .Release.Name }}
+  type: {{ .Values.service.type }}
+{{- if and (eq .Values.service.type "ClusterIP") .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
+{{- end }}
   ports:
-    {{- range .Values.service.ports }}
+{{- range .Values.service.ports }}
     - protocol: TCP
       port: {{ .external }}
       targetPort: {{ .internal }}
       name: {{ .name | quote }}
-    {{- end }}
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: gw-{{ .Release.Namespace }}
-  labels:
-    app: gw-{{ .Release.Namespace }}
-spec:
-  selector:
-    app: gw-{{ .Release.Namespace }}
-  type: LoadBalancer
+{{- end }}
+{{- if .Values.service.loadBalancerIP }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
-  sessionAffinity: ClientIP
-  externalTrafficPolicy: Local
-  ports:
-    {{- range .Values.service.ports }}
-    - protocol: TCP
-      port: {{ .external }}
-      targetPort: {{ .internal }}
-      name: {{ .name | quote }}
-    {{- end }}
+{{- end }}

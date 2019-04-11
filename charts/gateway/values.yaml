@@ -2,8 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+nameOverride: ""
+fullnameOverride: ""
+
 replicaCount: 1
-deploymentStrategy: RollingUpdate
+
+revisionHistoryLimit: 10
+updateStrategy: {}
+  # type: RollingUpdate
+  # rollingUpdate:
+  #   maxSurge: 1
+#   maxUnavailable: 0
+
 image:
   imageName: docker.k8s.apimsvc.ca.com/repository/docker-hosted/gateway
   tag: gateway_json-135
@@ -15,13 +25,13 @@ imageCredentials:
     username: admin
     password:
 
-nameOverride: ""
-fullnameOverride: ""
-
 service:
-  name: gw
-  type: ClusterIP
-  loadBalancerIP: ""
+  type: LoadBalancer
+  # clusterIP: None
+  ## LoadBalancer IP if service.type is LoadBalancer
+  ## Default: nil
+  ##
+  # loadBalancerIP: 10.2.2.2
   ports:
     - name: http
       internal: 8080
@@ -30,20 +40,20 @@ service:
       internal: 8443
       external: 443
 
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 120
+  timeoutSeconds: 5
+  periodSeconds: 5
+  successThreshold: 1
 
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 20
-    failureThreshold: 20
-    timeoutSeconds: 1
-    periodSeconds: 5
-    successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 20
+  failureThreshold: 20
+  timeoutSeconds: 1
+  periodSeconds: 5
+  successThreshold: 1
 
 
 resources:
