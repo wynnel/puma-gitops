@@ -28,7 +28,7 @@ spec:
     replicaCount: 1
     container:
       image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 17
+      tag: '17'
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
@@ -37,14 +37,14 @@ spec:
       enabled: false
     influxdb:
       host: "apim-service-metrics-runtime-influxdb.default"
-    service:  
+    service:
       ports:
-        - name: http
-          internal: 8080
-          external: 80
-        - name: https
-          internal: 8443
-          external: 443
+      - name: http
+        internal: 8080
+        external: 80
+      - name: https
+        internal: 8443
+        external: 443
 
 
 
