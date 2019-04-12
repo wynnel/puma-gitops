@@ -26,9 +26,9 @@ spec:
       key: env.yaml
   values:
     replicaCount: 1
-    container:
-      image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: '18'
+    image:
+      repository: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
+      tag: 18
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
