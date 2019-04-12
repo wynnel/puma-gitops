@@ -26,5 +26,6 @@ if [ $? -eq 0 ]; then
     echo "Secret created in $destination"
 else
     echo Failed to create secret
-    exit 1
 fi
+
+rm "$OUT"
