@@ -35,23 +35,39 @@ Give flux access to sync your cluster state with Git.
 On your repository, go to _Setting > Deploy keys_ click on _Add deploy key_, check 
 _Allow write access_, paste the Flux public key and click _Add key_.
 
+Flux logs:
+```bash
+kubectl -n flux logs deployment/flux -f
+```
 
-### Misc
+Fluxctl:
 
 ```bash
 brew install fluxctl
-kubectl -n flux logs deployment/flux -f
-fluxctl list-workloads --k8s-fwd-ns flux
-kubectl describe -n dev dev/gateway | grep Image
-get helmreleases --all-namespaces
 
+fluxctl list-workloads --k8s-fwd-ns flux --all-namespaces
+fluxctl list-images --k8s-fwd-ns flux --all-namespaces
+```
+
+### Re-create secrets for your cluster
+
+Install sealed secrets:
+```bash
 helm install --namespace kube-system --name sealed-secrets-controller stable/sealed-secrets
 
+```
+
+Install kubeseal:
+```bash
 GOOS=$(go env GOOS)
 GOARCH=$(go env GOARCH)
 wget https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
 sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
 kubectl create secret generic gw-license --dry-run --from-file=license.xml -n test  -o yaml | kubeseal --format yaml > secrets/gateway-license.yaml
 
-fluxctl list-workloads --k8s-fwd-ns flux --all-namespaces
 ```
+
+Re-create secrets by running scripts in the scripts folder.
+
+### Misc
+
