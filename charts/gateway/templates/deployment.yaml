@@ -24,8 +24,8 @@ spec:
          - name: {{ .Values.imageCredentials.name | quote }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{ .Values.container.image }}:{{ .Values.container.tag }}
+          imagePullPolicy: {{ .Values.container.pullPolicy }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           ports:

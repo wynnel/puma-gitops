@@ -23,8 +23,8 @@ spec:
       key: license.yaml
   values:
     replicaCount: 1
-    image:
-      repository: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
+    container:
+      image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
       tag: 14
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
