@@ -2,6 +2,33 @@
 
 Uses weaveworks' flux
 
+### Re-create secrets for your cluster
+
+Install sealed secrets:
+```bash
+helm install --namespace kube-system --name sealed-secrets-controller stable/sealed-secrets
+
+```
+
+Install kubeseal:
+```bash
+GOOS=$(go env GOOS)
+GOARCH=$(go env GOARCH)
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
+sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
+
+```
+
+Re-create secrets by running scripts in the scripts folder.
+
+### Configure images:
+In each of the HelmRelease yaml files (ie: releases/dev/gateay.yaml), set the images to use:
+```helmyaml
+container:
+      image: <your repository>/repository/docker-hosted/gateway
+      tag: '<your image tag>'
+```
+
 ### Install Weave Flux
 
 Add the Weave Flux chart repo:
@@ -19,7 +46,7 @@ kubectl apply -f https://raw.githubusercontent.com/weaveworks/flux/master/deploy
 helm install --name flux \
 --set rbac.create=true \
 --set helmOperator.create=true \
---set git.url=git@github.com:wynnel/puma-gitops \
+--set git.url=<repository url> \
 --namespace flux \
 weaveworks/flux
 ```
@@ -40,33 +67,14 @@ Flux logs:
 kubectl -n flux logs deployment/flux -f
 ```
 
-Fluxctl:
+By default, flux pulls from the git repo every 5 minutes, be patient!
+
+Fluxctl: [Installation instructions](https://github.com/weaveworks/flux/blob/master/site/fluxctl.md)
 
 ```bash
-brew install fluxctl
-
 fluxctl list-workloads --k8s-fwd-ns flux --all-namespaces
 fluxctl list-images --k8s-fwd-ns flux --all-namespaces
 ```
-
-### Re-create secrets for your cluster
-
-Install sealed secrets:
-```bash
-helm install --namespace kube-system --name sealed-secrets-controller stable/sealed-secrets
-
-```
-
-Install kubeseal:
-```bash
-GOOS=$(go env GOOS)
-GOARCH=$(go env GOARCH)
-wget https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
-sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
-
-```
-
-Re-create secrets by running scripts in the scripts folder.
 
 ### Misc
 
