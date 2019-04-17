@@ -31,25 +31,8 @@ container:
 
 ### Install Weave Flux
 
-Add the Weave Flux chart repo:
+Weave Flux [Installation instructions](https://github.com/weaveworks/flux/blob/master/chart/flux/README.md#to-install-flux-with-the-helm-operator). Set git.url to this repo.
 
-```bash
-helm repo add weaveworks https://weaveworks.github.io/flux
-```
-
-Install Weave Flux and its Helm Operator by specifying git repo URL: 
-```bash
-kubectl apply -f https://raw.githubusercontent.com/weaveworks/flux/master/deploy-helm/flux-helm-release-crd.yaml
-```
-
-```bash
-helm install --name flux \
---set rbac.create=true \
---set helmOperator.create=true \
---set git.url=<repository url> \
---namespace flux \
-weaveworks/flux
-```
 
 Find the SSH public key with:
 
@@ -74,6 +57,12 @@ Fluxctl: [Installation instructions](https://github.com/weaveworks/flux/blob/mas
 ```bash
 fluxctl list-workloads --k8s-fwd-ns flux --all-namespaces
 fluxctl list-images --k8s-fwd-ns flux --all-namespaces
+```
+
+### Remove Weave Flux
+```bash
+helm del --purge flux
+kubectl delete customresourcedefinitions fluxhelmreleases.helm.integrations.flux.weave.works helmreleases.flux.weave.works
 ```
 
 ### Misc
