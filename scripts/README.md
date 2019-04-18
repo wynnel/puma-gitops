@@ -1,6 +1,6 @@
 Secret for image credentials:
 ```bash
-./makeSecret.sh -namespace=test -dest=../releases/test/image-creds.yaml -password=<password>
+./makeImageCreds.sh -namespace=test -dest=../releases/test/image-creds.yaml -password=<password>
 ```
 
 Secret for license:
