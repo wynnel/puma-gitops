@@ -19,7 +19,7 @@ echo "gateway:" >> "$OUT"
 echo "  license:" >> "$OUT"
 echo "    accept: \"true\"" >> "$OUT"
 echo "    value: |+" >> "$OUT"
-awk  '{ print "      " $0 }'  "$license" >> "$OUT"
+echo "      $license" >> "$OUT"
 kubectl create secret generic gateway-license --dry-run  -n "$namespace"  -o yaml --from-file=license.yaml="$OUT"  | kubeseal --format yaml > "$destination"
 # | kubeseal --format yaml
 if [ $? -eq 0 ]; then
