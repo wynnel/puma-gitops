@@ -112,5 +112,3 @@ hazelcast:
           </network>
         </hazelcast>
 
-influxdb:
-  host: ""

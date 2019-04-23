@@ -45,6 +45,9 @@ spec:
       - name: https
         internal: 8443
         external: 443
+    gateway:
+      ENV.CONTEXT_VARIABLE_PROPERTY.influxdb.influxdb: "apim-service-metrics-runtime-influxdb.default"
+      ENV.CONTEXT_VARIABLE_PROPERTY.influxdb.tags: "env=dev"
 
 
 

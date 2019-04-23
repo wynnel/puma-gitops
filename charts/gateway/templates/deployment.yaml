@@ -36,9 +36,6 @@ spec:
             - name: {{ template "gateway.fullname" . }}-license-xml
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
               subPath: license.xml
-            - name: {{ template "gateway.fullname" . }}-metrics-volume
-              mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/metrics-policy.req.bundle
-              subPath: metrics-policy.bundle
             - name: {{ template "gateway.fullname" . }}-hazelcast-client
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/assertions/ExternalHazelcastSharedStateProviderAssertion/hazelcast-client.xml
               subPath: hazelcast-client.xml
@@ -107,12 +104,6 @@ spec:
             items:
             - key: license
               path: license.xml
-        - name: {{ template "gateway.fullname" . }}-metrics-volume
-          configMap:
-            name: {{ template "gateway.fullname" . }}
-            items:
-            - key: metrics-bundle
-              path: metrics-policy.bundle
         - name: {{ template "gateway.fullname" . }}-hazelcast-client
           configMap:
             name: {{ template "gateway.fullname" . }}
