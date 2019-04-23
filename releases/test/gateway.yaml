@@ -25,15 +25,13 @@ spec:
     replicaCount: 1
     container:
       image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 14
+      tag: 26
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
       username: "admin"
     hazelcast:
       enabled: false
-    influxdb:
-      host: "apim-service-metrics-runtime-influxdb.default"
     service:  
       ports:
         - name: http

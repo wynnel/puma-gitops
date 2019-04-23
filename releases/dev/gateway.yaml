@@ -35,8 +35,6 @@ spec:
       username: "admin"
     hazelcast:
       enabled: false
-    influxdb:
-      host: "apim-service-metrics-runtime-influxdb.default"
     service:
       ports:
       - name: http
